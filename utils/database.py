@@ -16,9 +16,7 @@ userdb = db.userdb
 
 async def get_apikey(user_id):
     user = await userdb.find_one({"user_id": user_id})
-    if user:
-        return user.get("api_key")
-    return False
+    return user.get("api_key") if user else False
 
 
 async def get_user(user_id):
@@ -55,22 +53,11 @@ async def broadcast():
     #     bot_token="5817679103:AAEhbhsOHZP0giq0gnVFM1g6KyJz0EhbScU",
     # )
     # await app.start()
-    c = 0 
+    c = 0
     async for user in userdb.find({}):
         c += 1
         print(c)
         continue
-        try:
-            user_id = user.get("user_id")
-            await app.send_message(
-                user_id,
-                f"""**♻️ Domains Changed
-
-api2.techzbots.live""",
-            )
-            print(user_id, "Sent")
-        except Exception as e:
-            print(user_id, e)
 
 
 # asyncio.run(broadcast())
